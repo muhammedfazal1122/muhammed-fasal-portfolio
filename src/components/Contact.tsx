@@ -155,7 +155,7 @@ export default function Contact() {
                   value={formState.name}
                   onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                   className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-hidden focus:border-blue-500 transition-colors"
-                  placeholder="John Doe"
+                  placeholder="Muhammed Fazal"
                   required
                 />
               </div>
@@ -167,7 +167,7 @@ export default function Contact() {
                   value={formState.email}
                   onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                   className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-hidden focus:border-blue-500 transition-colors"
-                  placeholder="john@example.com"
+                  placeholder="fazal@example.com"
                   required
                 />
               </div>
@@ -250,3 +250,8 @@ const LinkedinIcon = () => (
     <circle cx="4" cy="4" r="2" />
   </svg>
 );
+
+
+
+
+
