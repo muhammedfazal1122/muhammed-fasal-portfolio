@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { getMobileAnimationConfig } from "@/lib/utils";
 
 export default function Contact() {
   const [formState, setFormState] = useState({
@@ -11,6 +12,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const animationConfig = getMobileAnimationConfig();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,7 +61,8 @@ export default function Contact() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={animationConfig.transition}
+            viewport={animationConfig.viewport}
           >
             <h2 className="text-5xl md:text-7xl font-bold mb-6 text-white tracking-tight">
               Let’s build <br />
@@ -139,7 +142,8 @@ export default function Contact() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ ...animationConfig.transition, delay: 0.2 }}
+            viewport={animationConfig.viewport}
             className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 backdrop-blur-sm"
           >
             <form onSubmit={handleSubmit} className="space-y-6">

@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { isMobile, getMobileAnimationConfig } from "@/lib/utils";
 
 
 
@@ -43,6 +44,12 @@ export default function Testimonials() {
   const [formState, setFormState] = useState({ name: "", role: "", quote: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+  const animationConfig = getMobileAnimationConfig();
+
+  useEffect(() => {
+    setIsMobileDevice(isMobile());
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,7 +92,8 @@ export default function Testimonials() {
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={animationConfig.transition}
+          viewport={animationConfig.viewport}
           className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight"
         >
           Kind <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-purple-400">Words</span>
@@ -97,7 +105,8 @@ export default function Testimonials() {
         <motion.button
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ ...animationConfig.transition, delay: 0.2 }}
+          viewport={animationConfig.viewport}
           onClick={() => setIsModalOpen(true)}
           className="px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all text-sm font-medium backdrop-blur-sm"
         >
@@ -115,7 +124,7 @@ export default function Testimonials() {
             className="flex gap-8 px-4"
             animate={{ x: "-50%" }}
             transition={{
-              duration: 30,
+              duration: isMobileDevice ? 60 : 30,
               ease: "linear",
               repeat: Infinity,
             }}

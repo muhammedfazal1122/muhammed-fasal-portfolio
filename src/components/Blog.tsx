@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { isMobile, getMobileAnimationConfig } from "@/lib/utils";
 
 const ARTICLES = [
   {
@@ -33,6 +35,13 @@ const ARTICLES = [
 ];
 
 export default function Blog() {
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+  const animationConfig = getMobileAnimationConfig();
+
+  useEffect(() => {
+    setIsMobileDevice(isMobile());
+  }, []);
+
   return (
     <section
       className="relative z-20 bg-[#0a0a0a] py-32 px-4 md:px-12 overflow-hidden"
@@ -48,7 +57,8 @@ export default function Blog() {
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={animationConfig.transition}
+          viewport={animationConfig.viewport}
           className="text-5xl md:text-7xl font-bold text-white mb-16 text-center tracking-tight"
         >
           Insights
@@ -61,8 +71,9 @@ export default function Blog() {
               href={article.link}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
+              transition={{ ...animationConfig.transition, delay: index * 0.05 }}
+              viewport={animationConfig.viewport}
+              whileHover={isMobileDevice ? {} : { y: -10 }}
               className="group relative block h-full"
             >
               <div className="h-full bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm hover:bg-white/10 transition-colors flex flex-col">
