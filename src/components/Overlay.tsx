@@ -10,9 +10,21 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: any }) {
 
   useEffect(() => {
     setIsClient(true);
-    // Check if we should simplify animations (mobile or reduced motion preference)
+    // Simplify or disable overlay on mobile/reduced motion
     setShouldSimplify(isMobile() || prefersReducedMotion());
   }, []);
+
+  // if client and mobile or reduced motion, render a simplified static overlay
+  if (isClient && shouldSimplify) {
+    return (
+      <div className="absolute inset-0 pointer-events-none z-10 flex flex-col justify-center text-white mix-blend-difference">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold">Muhammed Fazal.</h1>
+          <p className="text-lg text-gray-300">Python Full Stack Developer.</p>
+        </div>
+      </div>
+    );
+  }
 
   // Opacity transforms (same for all devices)
   const opacity1 = useTransform(scrollYProgress, [0, 0.1, 0.2], [1, 1, 0]);

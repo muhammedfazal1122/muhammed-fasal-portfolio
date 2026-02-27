@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useRef } from "react";
 import {
   motion,
   useMotionValue,
@@ -7,7 +8,6 @@ import {
   useTransform,
   MotionValue,
 } from "framer-motion";
-import { useRef } from "react";
 import Link from "next/link";
 
 // Icons (Using simple SVGs or lucid-react if available, but I'll use SVG here for zero-deps)
@@ -65,13 +65,13 @@ export default function Dock() {
   );
 }
 
-function DockIcon({
+const DockIconInner = ({
   mouseX,
   item,
 }: {
   mouseX: MotionValue;
   item: (typeof DOCK_ITEMS)[0];
-}) {
+}) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const distance = useTransform(mouseX, (val) => {
@@ -98,4 +98,6 @@ function DockIcon({
       </motion.div>
     </Link>
   );
-}
+};
+
+const DockIcon = React.memo(DockIconInner);

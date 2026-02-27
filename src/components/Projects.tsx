@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { isMobile, getMobileAnimationConfig } from "@/lib/utils";
 
 // Project Data with Media & Layout Configuration
@@ -165,8 +166,8 @@ export default function Projects() {
 
   return (
     <section className="relative z-20 bg-[#0a0a0a] min-h-screen py-32 px-4 md:px-12 overflow-hidden" id="projects">
-      {/* Background Ambience */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+      {/* Background Ambience (hidden on small screens) */}
+      <div className="hidden md:block absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px]" />
       </div>
@@ -208,11 +209,16 @@ export default function Projects() {
                 whileHover={isMobileDevice ? {} : { scale: 1.015 }}
               >
                 {/* Media Background - Always 'mediaUrl' for Grid */}
-                <img
-                  src={project.mediaUrl}
-                  alt={project.title}
-                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 group-hover:scale-110"
-                />
+                <div className="absolute inset-0">
+                  <Image
+                    src={project.mediaUrl}
+                    alt={project.title}
+                    fill
+                    className="object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    priority={index < 6} // preload first few items
+                  />
+                </div>
 
                 {/* Gradient Overlay */}
                 <div className={`absolute inset-0 bg-linear-to-br ${project.color} ${project.hoverColor} transition-all duration-500 opacity-60 group-hover:opacity-80 mix-blend-overlay`} />
@@ -318,11 +324,15 @@ export default function Projects() {
                   <div className="flex flex-col md:flex-row h-full">
                     { /* Visual Side - Prioritize 'demoUrl', fallback to 'mediaUrl' */}
                     <div className={`w-full md:w-2/5 min-h-[300px] relative overflow-hidden flex flex-col justify-end p-8`}>
-                      <img
-                        src={selectedProject.demoUrl || selectedProject.mediaUrl}
-                        alt={selectedProject.title}
-                        className="absolute inset-0 w-full h-full object-cover opacity-80"
-                      />
+                      <div className="absolute inset-0">
+                        <Image
+                          src={selectedProject.demoUrl || selectedProject.mediaUrl}
+                          alt={selectedProject.title}
+                          fill
+                          className="object-cover opacity-80"
+                          sizes="(max-width: 768px) 100vw, 40vw"
+                        />
+                      </div>
                       <div className={`absolute inset-0 bg-linear-to-b ${selectedProject.color} mix-blend-overlay opacity-80`} />
                       <div className="absolute inset-0 bg-black/20" />
 

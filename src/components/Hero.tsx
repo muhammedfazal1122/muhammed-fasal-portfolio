@@ -9,6 +9,7 @@ export default function Hero() {
       <ScrollyVideo
         src="/newhero2-fixed.mp4"
         mobileSrc="/newhero.mp4"
+        poster="/hero-poster.jpg" // add a lightweight poster image in public/
       >
         {(progress: any) => <Overlay scrollYProgress={progress} />}
       </ScrollyVideo>

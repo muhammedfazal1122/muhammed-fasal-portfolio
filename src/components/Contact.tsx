@@ -48,8 +48,8 @@ export default function Contact() {
       className="relative z-20 bg-[#0a0a0a] py-32 px-4 md:px-12 overflow-hidden"
       id="contact"
     >
-      {/* Background Gradients */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+      {/* Background Gradients (disabled on small screens) */}
+      <div className="hidden md:block absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[100px]" />
       </div>
@@ -148,7 +148,7 @@ export default function Contact() {
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">Fullname</label>
                 <input
                   type="text"
                   id="name"

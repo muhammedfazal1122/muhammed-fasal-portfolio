@@ -82,8 +82,8 @@ export default function Testimonials() {
 
   return (
     <section className="relative z-20 bg-[#0a0a0a] py-32 overflow-hidden" id="testimonials">
-      {/* Background Ambience - Different position for variety */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+      {/* Background Ambience - Different position for variety (hidden on small devices) */}
+      <div className="hidden md:block absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px]" />
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px]" />
       </div>
@@ -99,7 +99,7 @@ export default function Testimonials() {
           Kind <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-purple-400">Words</span>
         </motion.h2>
         <p className="text-gray-400 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-          Feedback from clients and collaborators I've had the pleasure of working with.
+          Feedback from clients and collaborators I&apos;ve had the pleasure of working with.
         </p>
 
         <motion.button
@@ -122,11 +122,11 @@ export default function Testimonials() {
         <div className="flex w-max">
           <motion.div
             className="flex gap-8 px-4"
-            animate={{ x: "-50%" }}
+            animate={{ x: isMobileDevice ? 0 : "-50%" }}
             transition={{
-              duration: isMobileDevice ? 60 : 30,
+              duration: isMobileDevice ? 0 : 30,
               ease: "linear",
-              repeat: Infinity,
+              repeat: isMobileDevice ? 0 : Infinity,
             }}
           >
             {[...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS].map((item, index) => (
@@ -144,7 +144,7 @@ export default function Testimonials() {
                   </div>
                 </div>
                 <p className="text-gray-300 italic leading-relaxed">
-                  "{item.quote}"
+                  &ldquo;{item.quote}&rdquo;
                 </p>
               </div>
             ))}
@@ -177,7 +177,7 @@ export default function Testimonials() {
 
               <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
                 <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-1">Name</label>
+                  <label className="block text-sm font-medium text-gray-400 mb-1">Fullname</label>
                   <input
                     type="text"
                     required

@@ -48,16 +48,18 @@ export function getMobileAnimationConfig() {
     }
 
     if (mobile) {
-        // Simplified animations for mobile
+        // Simplified animations for mobile – disable transforms, reduce work
         return {
-            // Faster, simpler animations
+            initial: {},
+            animate: {},
+            whileInView: {},
             transition: {
-                duration: 0.3,
-                ease: "easeOut" as const
+                duration: 0.2,
+                ease: "linear" as const
             },
             // Disable hover effects
             whileHover: {},
-            // Simpler viewport animations
+            // Simpler viewport configuration
             viewport: {
                 once: true,
                 margin: "-50px" // Trigger earlier on mobile
