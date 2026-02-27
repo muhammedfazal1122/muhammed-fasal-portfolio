@@ -119,6 +119,8 @@ export default function Contact() {
             <a
               href="/MuhammedFasalResume.pdf"
               download
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition-colors transform hover:-translate-y-1"
             >
               <svg
